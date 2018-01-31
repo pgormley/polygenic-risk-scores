@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 # Run like: qsub -o q.calc_PRS.NFBC66.out -l h_rt=06:00:00 -l h_vmem=4g ~/ugersub.sh sh calc_PRS_scores.sh NFBC66 ./imputation/NFBC/NFBC66 ./any_mig.nonFinns.gwama.out
 
 # Name of study as prefix for output files e.g. swedish.QC4 || NFBC66 || GENMETS || LASERI
