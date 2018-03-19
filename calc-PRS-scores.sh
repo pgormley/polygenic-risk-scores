@@ -41,14 +41,29 @@ done
 
 # LD-clump the intersecting variants list based on LD from 1000g EUR samples and p-values from GWAS betas file:
 for chr in {1..22}; do
-	plink --bfile $LD_ref_data --keep $unrelateds --maf 0.05 --clump $STUDY/$STUDY.chr${chr}.intersection.gwama.no_dups --clump-p1 0.05 --clump-p2 1.00 --clump-r2 0.1 --clump-kb 500 --clump-snp-field rs_number --clump-field p-value --out $STUDY/$STUDY.chr$chr
+	plink --bfile $LD_ref_data \
+		--keep $unrelateds \
+		--maf 0.05 \
+		--clump $STUDY/$STUDY.chr${chr}.intersection.gwama.no_dups \
+		--clump-p1 0.05 \
+		--clump-p2 1.00 \
+		--clump-r2 0.1 \
+		--clump-kb 500 \
+		--clump-snp-field rs_number \
+		--clump-field p-value \
+		--out $STUDY/$STUDY.chr$chr
 done
 
 # Calculate PRS scores using list of LD-clumped SNPs:
 for chr in {1..22}; do
 	awk 'NR>1{print $3}' $STUDY/$STUDY.chr${chr}.clumped > $STUDY/$STUDY.chr${chr}.clumped.snplist
 	#plink --gen ${imputed_data}*chr${chr}[_.]*gz --sample $imputed_data.sample --oxford-single-chr $chr --extract $STUDY/$STUDY.chr${chr}.clumped.snplist --score $STUDY/$STUDY.chr${chr}.intersection.gwama $snpID_column $allele_column $betas_column header --out $STUDY/$STUDY.chr$chr
-	plink --gen ${imputed_data}*chr${chr}_*gz --sample $imputed_data.sample --oxford-single-chr $chr --extract $STUDY/$STUDY.chr${chr}.clumped.snplist --score $STUDY/$STUDY.chr${chr}.intersection.gwama $snpID_column $allele_column $betas_column header --out $STUDY/$STUDY.chr$chr
+	plink --gen ${imputed_data}*chr${chr}_*gz \
+		--sample $imputed_data.sample \
+		--oxford-single-chr $chr \
+		--extract $STUDY/$STUDY.chr${chr}.clumped.snplist \
+		--score $STUDY/$STUDY.chr${chr}.intersection.gwama $snpID_column $allele_column $betas_column header \
+		--out $STUDY/$STUDY.chr$chr
 done
 
 # Combine per-chromosome PRS scores by summing across the genome
