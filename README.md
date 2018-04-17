@@ -24,4 +24,4 @@ Usage
 ----------------------
 Open your bash or other shell. Then to run the script with the supplied toy data type:
 
-sh ./calc-PRS-scores.sh myStudyName imputedSampleRootName GWASresultsFile
+./calc-PRS-scores.sh myStudyName imputedSampleRootName GWASresultsFile
